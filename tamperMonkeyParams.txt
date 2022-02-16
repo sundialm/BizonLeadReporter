@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name         Bizon Reporter
+// @namespace    http://tampermonkey.net/
+// @version      0.3
+// @description  Скрипт для обработки отчетов сервиса Bizon
+// @author       Alexey Miloserdov a.g.miloserdov@gmail.com
+// @match        file:///*
+// @icon         https://www.google.com/s2/favicons?domain=tampermonkey.net
+// @grant        all
+// @require      https://raw.githubusercontent.com/agmiloserdov/BizonLeadReporter/main/reporter.js
+// ==/UserScript==
