@@ -158,7 +158,7 @@ class Report {
         let startDate = document.getElementsByClassName('st-start')[0].innerText.split(',');
         let hours_and_minutes = startDate[1].trim().split(":")
         startDate = startDate[0].split('.');
-        startDate = new Date(date[2], date[1], date[0], hours_and_minutes[0], hours_and_minutes[1])
+        // startDate = new Date(date[2], date[1], date[0], hours_and_minutes[0], hours_and_minutes[1])
         const endDate = new Date(startDate.getTime() + all_time * 60000)
         startDate = new Date(endDate.getTime() - MAX_MINUTES * 60000)
         //l total
