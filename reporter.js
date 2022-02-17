@@ -154,13 +154,26 @@ class Report {
 
     get_finished_leads_count() {
         //сюда
+        //взять финиш тайм
+        //нужно посчитать старт тайм относительно к финиш тайм
+        //вернуть пользователей у кого финиш тайм больше или ровно старт тайм которого мы посчитали выше
         let all_time = parseInt(document.getElementsByClassName('st-minutes')[0].innerText); //178
+        console.log(all_time)
         let startDate = document.getElementsByClassName('st-start')[0].innerText.split(',');
+        console.log(startDate)
         let hours_and_minutes = startDate[1].trim().split(":")
+        console.log(hours_and_minutes)
         startDate = startDate[0].split('.');
-        // startDate = new Date(date[2], date[1], date[0], hours_and_minutes[0], hours_and_minutes[1])
+        console.log(startDate)
+        // let date;
+        startDate = new Date(startDate[2], startDate[1], startDate[0], hours_and_minutes[0], hours_and_minutes[1])
+        console.log(startDate)
+
         const endDate = new Date(startDate.getTime() + all_time * 60000)
+        console.log(endDate)
+
         startDate = new Date(endDate.getTime() - MAX_MINUTES * 60000)
+        console.log(startDate)
         //l total
         return this.leads.filter(l => {
             return l.finish_time >= startDate;
