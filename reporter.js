@@ -153,31 +153,27 @@ class Report {
     }
 
     get_finished_leads_count() {
-        //сюда
-        //взять финиш тайм
-        //нужно посчитать старт тайм относительно к финиш тайм
-        //вернуть пользователей у кого финиш тайм больше или ровно старт тайм которого мы посчитали выше
-        let all_time = parseInt(document.getElementsByClassName('st-minutes')[0].innerText); //178
-        console.log(all_time)
+        //поменяла код здесь
+        let all_time = parseInt(document.getElementsByClassName('st-minutes')[0].innerText);
         let startDate = document.getElementsByClassName('st-start')[0].innerText.split(',');
-        console.log(startDate)
         let hours_and_minutes = startDate[1].trim().split(":")
-        console.log(hours_and_minutes)
         startDate = startDate[0].split('.');
-        console.log(startDate)
-        // let date;
-        startDate = new Date(startDate[2], startDate[1], startDate[0], hours_and_minutes[0], hours_and_minutes[1])
-        console.log(startDate)
-
+        startDate = new Date(startDate[2], parseInt(startDate[1])-1 , startDate[0], hours_and_minutes[0], hours_and_minutes[1])
         const endDate = new Date(startDate.getTime() + all_time * 60000)
-        console.log(endDate)
+        startDate = new Date(endDate.getTime() - 90 * 60000)
+        return this.leads.filter(l => l.finish_time >= startDate).length;
+    }
 
-        startDate = new Date(endDate.getTime() - MAX_MINUTES * 60000)
-        console.log(startDate)
-        //l total
-        return this.leads.filter(l => {
-            return l.finish_time >= startDate;
-        }).length;
+    get_finished_leads() {
+        //поменяла код здесь
+        let all_time = parseInt(document.getElementsByClassName('st-minutes')[0].innerText);
+        let startDate = document.getElementsByClassName('st-start')[0].innerText.split(',');
+        let hours_and_minutes = startDate[1].trim().split(":")
+        startDate = startDate[0].split('.');
+        startDate = new Date(startDate[2], parseInt(startDate[1])-1 , startDate[0], hours_and_minutes[0], hours_and_minutes[1])
+        const endDate = new Date(startDate.getTime() + all_time * 60000)
+        startDate = new Date(endDate.getTime() - 90 * 60000)
+        return this.leads.filter(l => l.finish_time >= startDate);
     }
 
     get_little_time_leads_count() {
@@ -252,14 +248,20 @@ function prepareData() {
     document.getElementById('finished_from_all_percent').innerText = report.get_percent_of_finished_leads();
     document.getElementById('want_to_study_from_all_percent').innerText = report.get_want_to_study_percent_from_all();
     document.getElementById('want_to_study_from_finished_percent').innerText = report.get_want_to_study_percent_from_finished();
+
     for (let lead of report.get_want_to_study_leads()) {
-        let lead_html = document.createElement('div');
-        lead_html.innerHTML =
-            `<div class="lead">
+        // если этот лид входит в число тех студентов из массива get_finished_leads_count()
+        // console.log(lead.username)
+        console.log(report.get_finished_leads().findIndex(l => l.username === lead.username) >= 0)
+        if (report.get_finished_leads().findIndex(l => l.username === lead.username) >= 0){
+            let lead_html = document.createElement('div');
+            lead_html.innerHTML =
+                `<div class="lead">
             <h4>${lead.username}</h4>
             <p>${lead.phone} | ${lead.email}</p>
          </div> <hr>`;
-        want_to_sign_block.appendChild(lead_html);
+            want_to_sign_block.appendChild(lead_html);
+        }
     }
 }
 
