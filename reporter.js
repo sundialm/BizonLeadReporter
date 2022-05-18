@@ -203,6 +203,7 @@ class Report {
 function agregate_leads() {
     let users = document.getElementsByClassName('userItem');
     let leads = []
+    const phones = [];
     for (let user of users) {
         try {
             let username = user.getElementsByClassName('username')[0].innerText;
@@ -216,6 +217,9 @@ function agregate_leads() {
             } catch (error) {
                 user_messages = [];
             }
+
+            if (phones.includes(phone)) continue
+            phones.push(phone);
 
             let lead = new Lead(username, email, phone, start_time, finish_time);
             for (let message of user_messages) {
