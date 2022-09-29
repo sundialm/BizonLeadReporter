@@ -138,11 +138,10 @@ class Report {
 
     agregate_want_to_study_leads() {
         for (let lead of this.leads) {
-            let msg = lead.messages.toString();
+            let msg = lead.messages.toString().toLowerCase();
             for (let text of this.keywordMessages) {
                 console.log(msg)
-                if (msg.includes(text))
-                    lead.want_to_study = true;
+                if (msg.includes(text.toLowerCase())){ lead.want_to_study = true;}
             }
         }
     }
