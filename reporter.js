@@ -109,6 +109,7 @@ class Report {
             "записывайте меня",
             "запишите меня",
             "хочу в Attractor school",
+            "Хочу в Attractor school",
             "хочу в аттрактор скул",
             "хочу на дневное",
             "хочу на вечернее",
@@ -139,6 +140,7 @@ class Report {
         for (let lead of this.leads) {
             let msg = lead.messages.toString();
             for (let text of this.keywordMessages) {
+                console.log(msg)
                 if (msg.includes(text))
                     lead.want_to_study = true;
             }
